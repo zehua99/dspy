@@ -189,6 +189,8 @@ class HFModel(LM):
 
         if kwargs.get("n", 1) > 1 or kwargs.get("temperature", 0.0) > 0.1:
             kwargs["do_sample"] = True
+        elif kwargs.get("temperature", 0.0) == 0.0:
+            kwargs["do_sample"] = False
 
         response = self.request(prompt, **kwargs)
         return [c["text"] for c in response["choices"]]
